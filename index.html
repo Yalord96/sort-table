@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>Таблица</title>
+</head>
+<body>
+    <center>
+        <table border="1" class="table_sort" id="sortable">
+            <thead>
+                <tr>
+                    <th>
+                        <center>скрин
+                    </th>
+                    <th>
+                        <center>название
+                    </th>
+                    <th data-type="number">
+                        <center>цена кс го маркет
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/1.png">
+                    </td>
+                    <td class="weaponName">Negev | Drop Me (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/2.png">
+                    </td>
+                    <td class="weaponName">M4A4 | Poly Mag (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/3.png">
+                    </td>
+                    <td class="weaponName">UMP-45 | Roadblock (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/4.png">
+                    </td>
+                    <td class="weaponName">FAMAS | Meow 36 (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/5.png">
+                    </td>
+                    <td class="weaponName">MAC-10 | Monkeyflage (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/6.png">
+                    </td>
+                    <td class="weaponName">Glock-18 | Winterized (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/7.png">
+                    </td>
+                    <td class="weaponName">Galil AR | Destroyer (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/8.png">
+                    </td>
+                    <td class="weaponName">R8 Revolver | Crazy 8 (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/9.png">
+                    </td>
+                    <td class="weaponName">P90 | Vent Rush (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/10.png">
+                    </td>
+                    <td class="weaponName">M249 | Downtown (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/11.png">
+                    </td>
+                    <td class="weaponName">Dual Berettas | Flora Carnivora (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/12.png">
+                    </td>
+                    <td class="weaponName">SG 553 | Dragon Tech (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/13.png">
+                    </td>
+                    <td class="weaponName">P250 | Visions (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/14.png">
+                    </td>
+                    <td class="weaponName">Sawed-Off | Kiss\u2665Love (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/15.png">
+                    </td>
+                    <td class="weaponName">AK-47 | Ice Coaled (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/16.png">
+                    </td>
+                    <td class="weaponName">AWP | Chromatic Aberration (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+                </tr>
+                <tr class="auto">
+                    <td>
+                        <center><img src="img/17.png">
+                    </td>
+                    <td class="weaponName">USP-S | Printstream (Battle-Scarred)</td>
+                    <td class="weaponPrice"></td>
+            </tbody>
+        </table>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="main.js"></script>
+        <script type="module">
+            async function getData() {
+                var from_server_request = "";
+                while (true) {
+                    try {
+                        await jQuery.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://market.csgo.com/api/v2/prices/RUB.json') + '&callback=?', function (data) {
+                            const obj = JSON.parse(data.contents);
+                            const items = obj["items"]
+                            var arr = $('.weaponName')
+                            for (let i = 0; i < arr.length; i += 1) {
+                                var name = arr[i].innerHTML
+                                for (let j = 0; j < items.length; j += 1) {
+                                    if (items[j]["market_hash_name"] === name) {
+                                        $('.weaponPrice')[i].innerHTML = items[j]["price"];
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    }
+                    catch (e) { }
+                }
+            }
+            await getData();
+        </script>
+</body>
+</html>
